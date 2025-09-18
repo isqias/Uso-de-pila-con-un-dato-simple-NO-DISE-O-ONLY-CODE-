@@ -8,115 +8,81 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp3
 {
+    internal class Auto
+    {
+        public string Placas { get; set; }
+        public string Propietario { get; set; }
+        public string Color { get; set; }
+
+        public Auto(string placas, string propietario, string color)
+        {
+            Placas = placas;
+            Propietario = propietario;
+            Color = color;
+        }
+    }
+
     internal class claseTDA
     {
-        public int top;
-        public readonly int max;
-        public int[] arreglo;
+        private int top;
+        private readonly int max;
+        private Auto[] arreglo;
 
         public int Top1 { get => top; }
         public int Max1 { get => max; }
-        public int[] Arreglo1 { get => arreglo; }
+        public Auto[] Arreglo1 { get => arreglo; }
 
-        public claseTDA(int n)
+        public claseTDA(int n = 10)
         {
             max = n;
             top = 0;
-            arreglo = new int[max];
+            arreglo = new Auto[max];
         }
+
         public bool EstaLLeno()
         {
-            if (Top1 == Max1)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return Top1 == Max1;
         }
+
         public bool EstaVacio()
         {
-            if (Top1 == 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return Top1 == 0;
         }
-        public bool InsertarDato(int dato)
+
+     
+        public bool InsertarAuto(Auto auto)
         {
-            if (!EstaLLeno())
-                throw new Exception("Pila llena, no se pueden agragar mas datos");
+            if (EstaLLeno())
+                throw new Exception("Estacionamiento lleno, no se pueden agregar más autos");
+
+        
             for (int i = 0; i < Top1; i++)
-                if (Arreglo1[i] == dato)
-                    throw new Exception("El dato ya existe en la pila");
-            Arreglo1[Top1] = dato;
+                if (Arreglo1[i].Placas == auto.Placas)
+                    throw new Exception("Ya existe un auto con esas placas");
+
+            Arreglo1[Top1] = auto;
             top++;
             return true;
         }
 
-        public int SacarDato()
+        public Auto SacarAuto()
         {
             if (EstaVacio())
-                return -1; //indica que la pila esta vacia
+                return null;
+
             top--;
-            return Arreglo1[Top1]; //retorna el dato que se saca
+            Auto carrito = Arreglo1[Top1];
+            Arreglo1[Top1] = null; 
+            return carrito;
         }
 
-        public bool EliminarDato(int dato)
+        public Auto[] ObtenerAutos()
         {
-            int i = 0;
-            if (!EstaVacio())
-            {
-                for (i = 0; i < Top1; i++)
-                {
-                    if (arreglo[i] == dato)
-                    {
-                        for (int y = i; y < Top1 - 1; y++)
-                        {
-                            arreglo[y] = arreglo[y + 1];
-                            top--;   //Disminuye el tope
-                            return true; //Realizado con exito
-
-
-                        }
-                        return false; //No se encontro el dato
-                    }
-                    return false;
-                }
-            }
-           return false; //Pila vacia
-        }
-        
-        public bool EliminarDato()
-        { 
-        int i = 0;
-            if (!EstaVacio())
-            {
-                arreglo [Top1 - 1] = 0;
-                top--;   //Disminuye el tope
-                return false; //Realizado con exito
-            }
-            return false; //No se encontro el dato
-        }
-
-        //public int BuscarDato() 
-        //{
-        //    int numeroArreglo[top - 1];
-        //    return numero;
-
-        //}
-
-        public int[] ObtenerDatos()
-        {
-            int[] arregloAux = new int[Top1];
+            Auto[] arregloAux = new Auto[Top1];
             for (int i = 0; i < Top1; i++)
                 arregloAux[i] = Arreglo1[i];
             return arregloAux;
-
         }
     }
+
 }
