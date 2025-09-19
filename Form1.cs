@@ -40,8 +40,8 @@ namespace WindowsFormsApp3
                 estacionamiento.InsertarAuto(nuevo);
                 MessageBox.Show("El auto se ingreso correctamente", "Auto Ingresado", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                dgvAutosDatosS.DataSource = nuevo;
-                dgvAutosDatosS.DataSource =  estacionamiento.ObtenerAutos();
+                dgvAutosDatosS.DataSource = null;
+                dgvAutosDatosS.DataSource = estacionamiento.ObtenerAutos();
             }
             catch
             {
@@ -74,6 +74,11 @@ namespace WindowsFormsApp3
         private void btnSalir_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnBuscarTop_Click(object sender, EventArgs e)
+        {
+            txtTop.Text = estacionamiento.Top1.ToString();
         }
     }
 }

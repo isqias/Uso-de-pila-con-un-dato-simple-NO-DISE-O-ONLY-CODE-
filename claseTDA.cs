@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.ExceptionServices;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace WindowsFormsApp3
 {
@@ -83,6 +85,23 @@ namespace WindowsFormsApp3
                 arregloAux[i] = Arreglo1[i];
             return arregloAux;
         }
+
+        public void Mostrar(DataGridView dgvCarros)
+        { 
+        dgvCarros.Rows.Clear();
+            for (int i = 0; i < Top1; i++)
+            {
+                dgvCarros.Rows.Add(Arreglo1[i].Placas, Arreglo1[i].Propietario, Arreglo1[i].Color);
+            }
+            if (top > 0)
+            { 
+            dgvCarros.Rows[Top1 - 1].DefaultCellStyle.BackColor = Color.LightGreen;
+            }
+
+
+        }
+
     }
+    
 
 }
